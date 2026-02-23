@@ -73,8 +73,19 @@ ORDER BY total_revenue DESC
 ```
 
 5. What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
+  ``` SELECT
+    product_line,
+    ROUND(SUM(revenue), 2) AS total_revenue,
+    SUM(quantity) AS quantity_sold,
+    ROW_NUMBER() OVER (
+        ORDER BY SUM(revenue) DESC
+    ) AS revenue_rank
+FROM supermarket_sales
+GROUP BY product_line
+ORDER BY total_revenue DESC
+```
 
-6. Which product line has the highest total quantity sold?
+7. Which product line has the highest total quantity sold?
 ```
 WITH qty_cte AS (
     SELECT 
