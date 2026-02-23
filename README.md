@@ -33,19 +33,54 @@ The project focuses purely on **SQL** (no Python/Power BI here) to showcase clea
 
 - **Database**: SQLserver for Analysis (queries are mostly standard SQL)
 - **clean**: Ms Excel
--
-   ## Exploratory Data Analysis
- - How do sales differ by gender?Which gender contributes more to revenue in each product line?
- - What is the distribution of customer types  — count and percentage of total sales?
- - Which product line has the highest average unit price?
- - Which has the highest total quantity sold?
- - What is the total revenue  generated overall and broken down by product line/category?
- - How many unique branches/cities are there, and what is the total sales amount per branch?
- - What is the total number of transactions rows in the dataset?
- - For each Product line, what is the average Unit price and average Quantity purchased? Which product line has the highest average spend per transaction?
- - Extract the month and day of week  from the Date column. Which month has the highest total sales? Which day of the week is busiest ?
-- What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
-- Calculate total sales revenue, number of transactions,and average transaction value (AVG(Total)) by Branch and by City. Which branch/city performs best in each metric?
+
+# 📊 SQL Exploratory Data Analysis – Question Flow (Basic → Advanced)
+
+## 🟢 1. Dataset Overview
+
+1. What is the total number of transaction rows in the dataset?
+
+2. How many unique branches/cities are there, and what is the total sales amount per branch?
+
+---
+
+## 🟡 2. Revenue & Product-Level Aggregation
+
+3. What is the total revenue generated overall and broken down by product line/category?
+
+4. What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
+
+5. Which product line has the highest total quantity sold?
+
+6. Which product line has the highest average unit price?
+
+---
+
+## 🟠 3. Advanced Product Metrics
+
+7. For each Product line, what is the average Unit price and average Quantity purchased? Which product line has the highest average spend per transaction?
+
+---
+
+## 🔵 4. Customer & Gender Analysis
+
+8. What is the distribution of customer types — count and percentage of total sales?
+
+9. How do sales differ by gender?
+
+10. Which gender contributes more to revenue in each product line?
+
+---
+
+## 🟣 5. Time-Based Analysis
+
+11. Extract the month and day of week from the Date column. Which month has the highest total sales? Which day of the week is busiest?
+
+---
+
+## 🔴 6. Branch & City Performance (Advanced KPIs)
+
+12. Calculate total sales revenue, number of transactions, and average transaction value (AVG(Total)) by Branch and by City. Which branch/city performs best in each metric?
 
 
-  
+
