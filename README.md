@@ -41,40 +41,132 @@ The project focuses purely on **SQL** (no Python/Power BI here) to showcase clea
 1. What is the total number of transaction rows in the dataset?
 
 2. How many unique branches/cities are there, and what is the total sales amount per branch?
-
----
+ ```sql
+SELECT
+COUNT(DISTINCT branch)total_branches,
+COUNT(DISTINCT city) total_cities
+FROM supermarket_sales
+SELECT
+    branch,
+    city,
+    ROUND(SUM(sales_amount), 2) AS total_sales
+FROM (
+    SELECT 
+        branch,
+        city,
+        ([unit_cost] * Quantity) AS sales_amount
+    FROM supermarket_sales
+) AS derived
+GROUP BY branch, city
+ORDER BY total_sales DESC
+```
 
 ## 🟡 2. Revenue & Product-Level Aggregation
 
 3. What is the total revenue generated overall and broken down by product line/category?
+```SELECT 
+    product_line,
+    ROUND(SUM(revenue), 2) AS total_revenue
+FROM supermarket_sales
+GROUP BY product_line
+ORDER BY total_revenue DESC
+```
 
-4. What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
+5. What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
 
-5. Which product line has the highest total quantity sold?
-
+6. Which product line has the highest total quantity sold?
+```
+WITH qty_cte AS (
+    SELECT 
+        product_line,
+        SUM(quantity) AS quantity_sold,
+        RANK() OVER (ORDER BY SUM(quantity) DESC) AS rnk
+    FROM supermarket_sales
+    GROUP BY product_line
+)
+SELECT product_line, quantity_sold
+FROM qty_cte
+WHERE rnk = 1;
+```
 6. Which product line has the highest average unit price?
-
----
+```SELECT TOP 1
+    product_line,
+    ROUND(AVG(unit_cost), 2) AS avg_unit_price
+FROM supermarket_sales
+GROUP BY product_line
+ORDER BY avg_unit_price DESC
+```
 
 ## 🟠 3. Advanced Product Metrics
 
-7. For each Product line, what is the average Unit price and average Quantity purchased? Which product line has the highest average spend per transaction?
+7.  Which product line has the highest average spend per transaction?
+   ```SELECT TOP 1
+    product_line,
+    ROUND(
+        SUM(revenue) * 1.0 / COUNT(DISTINCT invoice_id),
+    2) AS avg_spend_per_transaction
+FROM supermarket_sales
+GROUP BY product_line
+ORDER BY avg_spend_per_transaction DESC
+```
+--For each Product line, what is the average Unit price and average Quantity purchased? 
+```SELECT TOP 1
+    product_line,
+    SUM(quantity) AS quantity_sold
+FROM supermarket_sales
+GROUP BY product_line
+ORDER BY quantity_sold DESC
+```
 
 ---
 
 ## 🔵 4. Customer & Gender Analysis
 
 8. What is the distribution of customer types — count and percentage of total sales?
+```SELECT 
+    customer_type,
+    COUNT(*) AS total_transactions,
+    SUM(unit_price * quantity) AS total_sales,
+    ROUND(
+        SUM(unit_price * quantity) * 100.0 
+        / SUM(SUM(unit_price * quantity)) OVER(), 
+    2) AS sales_percentage
+FROM supermarket_sales
+GROUP BY customer_type
+ORDER BY total_sales DESC;
+```
 
-9. How do sales differ by gender?
-
-10. Which gender contributes more to revenue in each product line?
-
+9. How do sales differ by gender? Which gender contributes more to revenue in each product line?
+```sql
+WITH cte_revenuebygender AS (
+    SELECT 
+        product_line,
+        gender_customer,
+        ROUND(SUM(revenue),2) AS total_revenue,
+        ROW_NUMBER() OVER (PARTITION BY product_line ORDER BY SUM(revenue) DESC) AS RN
+    FROM supermarket_sales
+    GROUP BY product_line, gender_customer
+)
+SELECT 
+    product_line,
+    gender_customer,
+    total_revenue
+FROM cte_revenuebygender
+WHERE RN = 1;
+```
 ---
 
 ## 🟣 5. Time-Based Analysis
 
 11. Extract the month and day of week from the Date column. Which month has the highest total sales? Which day of the week is busiest?
+```
+SELECT TOP 1
+    DATENAME(WEEKDAY, date) AS Day_Name,
+    ROUND(SUM(unit_price * quantity), 2) AS total_sales
+FROM supermarket_sales
+GROUP BY DATENAME(WEEKDAY, date)
+ORDER BY total_sales DESC
+```
 
 ---
 
