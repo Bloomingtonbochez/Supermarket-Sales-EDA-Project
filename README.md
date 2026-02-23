@@ -34,7 +34,7 @@ The project focuses purely on **SQL** (no Python/Power BI here) to showcase clea
 - **Database**: SQLserver for Analysis (queries are mostly standard SQL)
 - **clean**: Ms Excel
 
-# 📊 SQL Exploratory Data Analysis – Question Flow (Basic → Advanced)
+# 📊 SQL Exploratory Data Analysis 
 
 ## 🟢 1. Dataset Overview
 
