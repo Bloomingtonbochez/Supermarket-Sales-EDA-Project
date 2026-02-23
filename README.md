@@ -78,8 +78,7 @@ FROM supermarket_sales
 GROUP BY product_line
 ORDER BY total_revenue DESC
 ```
-
-5. What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
+What is the total revenue and quantity sold by Product line? Rank the product lines from highest to lowest revenue.
 ```
 SELECT
     product_line,
@@ -93,7 +92,7 @@ GROUP BY product_line
 ORDER BY total_revenue DESC
 ```
 
-7. Which product line has the highest total quantity sold?
+ Which product line has the highest total quantity sold?
 ```
 WITH qty_cte AS (
     SELECT 
@@ -107,7 +106,7 @@ SELECT product_line, quantity_sold
 FROM qty_cte
 WHERE rnk = 1;
 ```
-6. Which product line has the highest average unit price?
+ Which product line has the highest average unit price?
 ```
 SELECT TOP 1
     product_line,
@@ -118,8 +117,7 @@ ORDER BY avg_unit_price DESC
 ```
 
 ## 🟠 3. Advanced Product Metrics
-
-7.  Which product line has the highest average spend per transaction?
+ Which product line has the highest average spend per transaction?
    ```
 SELECT TOP 1
     product_line,
@@ -130,7 +128,7 @@ FROM supermarket_sales
 GROUP BY product_line
 ORDER BY avg_spend_per_transaction DESC
 ```
---For each Product line, what is the average Unit price and average Quantity purchased? 
+For each Product line, what is the average Unit price and average Quantity purchased? 
 ```
 SELECT TOP 1
     product_line,
@@ -144,7 +142,7 @@ ORDER BY quantity_sold DESC
 
 ## 🔵 4. Customer & Gender Analysis
 
-8. What is the distribution of customer types — count and percentage of total sales?
+What is the distribution of customer types — count and percentage of total sales?
 ```
 SELECT 
     customer_type,
@@ -159,7 +157,7 @@ GROUP BY customer_type
 ORDER BY total_sales DESC;
 ```
 
-9. How do sales differ by gender? Which gender contributes more to revenue in each product line?
+ How do sales differ by gender? Which gender contributes more to revenue in each product line?
 ```
 WITH cte_revenuebygender AS (
     SELECT 
