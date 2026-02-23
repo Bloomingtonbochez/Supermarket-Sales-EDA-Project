@@ -38,15 +38,15 @@ The project focuses purely on **SQL** (no Python/Power BI here) to showcase clea
 
 ## 🟢 1. Dataset Overview
 
-1. What is the total number of transaction rows in the dataset?
-   ```
+ What is the total number of transaction rows in the dataset?
+```
 SELECT
 COUNT(invoice_id) total_number_transaction
 FROM supermarket_sales
  ```
 
 
-3. How many unique branches/cities are there, and what is the total sales amount per branch?
+How many unique branches/cities are there, and what is the total sales amount per branch?
 
  ```
 SELECT
@@ -67,10 +67,9 @@ FROM (
 GROUP BY branch, city
 ORDER BY total_sales DESC
 ```
-```
-## 🟡 2. Revenue & Product-Level Aggregation
 
-3. What is the total revenue generated overall and broken down by product line/category
+## 🟡 2. Revenue & Product-Level Aggregation
+What is the total revenue generated overall and broken down by product line/category
 ```
  SELECT 
     product_line,
